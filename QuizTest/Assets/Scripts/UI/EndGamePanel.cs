@@ -37,12 +37,14 @@ namespace UI
         }
         private void Show()
         {
+            _repeatButton.interactable = true;
             _panelTween.GoToEnd(MoveMode.Hide);
             _sequenceSettings.Move(MoveMode.Show);
             _tweenUIEffect.DoEffect();
         }
         private void Hide()
         {
+            _repeatButton.interactable = false;
             _sequenceSettings.Move(MoveMode.Hide).AppendCallback(() => gameObject.SetActive(false));
         }
 
@@ -50,9 +52,8 @@ namespace UI
         private void OnRepeatButtonDown()
         {
             var levelLoader = Services.Instance.LevelLoader.ServicesObject;
-            levelLoader.LoadLevelGame(0);
-            Services.Instance.GridBehaviour.ServicesObject.CreateGrid();
-            ChangeGameStateEvent.Trigger(GameStateType.GameState);
+            levelLoader.ResetLevel();
+            ChangeGameStateEvent.Trigger(GameStateType.LoadGameState);
         }
     }
 }

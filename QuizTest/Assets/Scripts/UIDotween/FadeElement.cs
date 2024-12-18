@@ -13,12 +13,11 @@ namespace UI
             _fadeElement = fadeElement;
         }
 
-        public override void DoEffect()
+        public override Sequence CreateTweenActions()
         {
-            base.DoEffect();
             _fadeElement.alpha = 0;
             _sequence.Append(_fadeElement.DOFade(1.0f, _effectDuration));
+            return _sequence;
         }
-
     }
 }

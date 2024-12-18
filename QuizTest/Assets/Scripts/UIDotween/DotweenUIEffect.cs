@@ -16,11 +16,14 @@ namespace UI
         public virtual void DoEffect()
         {
             _sequence = DOTween.Sequence();
+            CreateTweenActions();
         }
         public virtual void DoEffect(Action actionOnComplete)
         {
             _sequence = DOTween.Sequence();
+            CreateTweenActions().OnComplete(() => actionOnComplete.Invoke());
         }
+        public abstract Sequence CreateTweenActions();
 
     }
 }

@@ -39,6 +39,10 @@ namespace Controllers
                 _level = null;
             }
         }
+        public void ResetLevel()
+        {
+            _levelIndex = 0;
+        }
         public bool IsLastLevel()
         {
             if (_levelsBundle.IsLastLevel()) { return true; }

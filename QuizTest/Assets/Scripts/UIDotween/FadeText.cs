@@ -11,11 +11,12 @@ namespace UI
             _effectDuration = fadeDuration;
             _text = text;
         }
-        public override void DoEffect()
+
+        public override Sequence CreateTweenActions()
         {
-            base.DoEffect();
             _text.alpha = 0f;
             _sequence.Append(_text.DOFade(1.0f, _effectDuration));
+            return _sequence;
         }
     }
 }

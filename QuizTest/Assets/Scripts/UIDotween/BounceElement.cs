@@ -1,6 +1,5 @@
 ﻿using UnityEngine;
 using DG.Tweening;
-using System;
 
 namespace UI
 {
@@ -16,18 +15,11 @@ namespace UI
             _elementTransform = elementTransform;
         }
 
-        public override void DoEffect()
+        public override Sequence CreateTweenActions()
         {
-            base.DoEffect();
             _sequence.Append(_elementTransform.DOScale(_effectIntensive, _effectDuration / 2).SetEase(Ease.InBounce));
             _sequence.Append(_elementTransform.DOScale(1f, _effectDuration / 2).SetEase(Ease.Linear));
-        }
-        public override void DoEffect(Action onCompleteAction)
-        {
-            base.DoEffect(onCompleteAction);
-            _sequence.Append(_elementTransform.DOScale(_effectIntensive, _effectDuration / 2).SetEase(Ease.InBounce));
-            _sequence.Append(_elementTransform.DOScale(1f, _effectDuration / 2).SetEase(Ease.Linear));
-            _sequence.OnComplete(() => onCompleteAction());
+            return _sequence;
         }
     }
 }
