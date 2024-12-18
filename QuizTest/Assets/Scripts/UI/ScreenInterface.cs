@@ -1,5 +1,6 @@
 ﻿using System;
 using Helpers;
+using UnityEngine;
 
 namespace UI
 {
@@ -15,6 +16,7 @@ namespace UI
         }
 
         public BaseUI CurrentWindow => _currentWindow;
+        public Canvas Canvas => _screenFactory.Canvas;
 
         public static ScreenInterface GetInstance()
         {

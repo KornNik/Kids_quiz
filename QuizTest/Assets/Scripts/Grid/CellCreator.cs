@@ -1,6 +1,7 @@
 ﻿using Helpers;
 using UnityEngine;
 using System.Collections.Generic;
+using UI;
 
 namespace Behaviours
 {
@@ -37,8 +38,9 @@ namespace Behaviours
 
         public CellBehaviour PreLoad(CellBehaviour prefab)
         {
-            var slot = GameObject.Instantiate(_cellPrefab);
-            slot.transform.parent = _parent;
+            var slot = GameObject.Instantiate(_cellPrefab, Vector3.zero, Quaternion.identity, _parent);
+            slot.transform.localScale = Vector3.one;
+            slot.transform.localPosition = Vector3.zero;
             return slot;
         }
         public void GetAction(CellBehaviour itemSlot) => itemSlot.ActivateSlot();

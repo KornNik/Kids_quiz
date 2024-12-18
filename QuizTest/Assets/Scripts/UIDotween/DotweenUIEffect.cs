@@ -1,18 +1,27 @@
 ﻿using DG.Tweening;
+using System;
 
-
-abstract class DotweenUIEffect
+namespace UI
 {
-    protected Sequence _sequence;
-    protected float _effectDuration;
-    protected float _effectIntensive;
-
-    public DotweenUIEffect(float effectDuration, float effectIntensive)
+    abstract class DotweenUIEffect
     {
-        _effectDuration = effectDuration;
-        _effectIntensive = effectIntensive;
-    }
+        protected Sequence _sequence;
+        protected float _effectDuration;
 
-    public abstract void DoEffect();
+        public DotweenUIEffect(float effectDuration)
+        {
+            _effectDuration = effectDuration;
+        }
+
+        public virtual void DoEffect()
+        {
+            _sequence = DOTween.Sequence();
+        }
+        public virtual void DoEffect(Action actionOnComplete)
+        {
+            _sequence = DOTween.Sequence();
+        }
+
+    }
 }
 

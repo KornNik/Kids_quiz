@@ -2,10 +2,11 @@
 using Data;
 using Helpers;
 using System.Collections.Generic;
+using UI;
 
 namespace Behaviours
 {
-    class Grid
+    class Grid : IEventListener<CellsStatusEvent>, IEventSubscription
     {
         private Transform _parentTransform;
         private CellCreator _cellCreator;
@@ -26,7 +27,6 @@ namespace Behaviours
         }
 
         public List<CellBehaviour> Cells => _activatedCells;
-
 
         public void CreateCells()
         {
@@ -52,7 +52,31 @@ namespace Behaviours
                 _activatedCells[i].ActivateSlot();
                 _activatedCells[i].FillCell(_randomElement.GetRandomCellData());
             }
-        } 
+        }
+        private void SetCellsStatus(bool status)
+        {
+            if(_activatedCells == null) {  return; }
+            if (_activatedCells.Count == 0) { return; }
+
+            foreach(var cell in _cells)
+            {
+                cell.SetInteractableStatus(status);
+            }
+        }
+
+        public void OnEventTrigger(CellsStatusEvent eventType)
+        {
+            SetCellsStatus(eventType.InteractableStatus);
+        }
+
+        public void Subscribe()
+        {
+            this.EventStartListening();
+        }
+        public void Unsubscribe()
+        {
+            this.EventStopListening();
+        }
     }
 }
 

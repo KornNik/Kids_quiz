@@ -5,10 +5,9 @@ using UnityEngine;
 
 namespace Controllers
 {
-    sealed class GlobalParticlesController : MonoBehaviour, IEventListener<AnswerSelectedEvent>
+    sealed class GlobalParticlesController : MonoBehaviour, IEventListener<CreateParticleEvent>
     {
         private ParticlesPool _starsPool;
-
 
         private void Awake()
         {
@@ -24,11 +23,13 @@ namespace Controllers
             this.EventStopListening();
         }
 
-        public void OnEventTrigger(AnswerSelectedEvent eventType)
+        public void OnEventTrigger(CreateParticleEvent eventType)
         {
-            if (eventType.Type == AnswerType.Correct)
+            if (eventType.Type == ParticleType.Stars)
             {
-                _starsPool.StartAt(eventType.CellPosition, Quaternion.identity);
+                var finalPosition = new Vector3(eventType.ParticlePosition.position.x,
+                    eventType.ParticlePosition.position.y, eventType.ParticlePosition.position.z - 5);
+                _starsPool.StartAt(finalPosition, Quaternion.identity);
             }
         }
     }

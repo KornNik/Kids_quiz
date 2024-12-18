@@ -13,6 +13,7 @@ namespace Behaviours
         private CellBundleData _cellBundle;
         private AnswerChecker _answerChecker;
         private RandomAnswerGenerator _answerGenerator;
+        private EventSubscriptionWraper _eventSubscriptionWraper;
 
         public AnswerChecker AnswerChecker => _answerChecker;
         public RandomAnswerGenerator AnswerGenerator => _answerGenerator;
@@ -26,16 +27,17 @@ namespace Behaviours
             _answerChecker = new AnswerChecker();
             _answerGenerator = new RandomAnswerGenerator();
             _grid.CreateCells();
+
+            _eventSubscriptionWraper = new EventSubscriptionWraper(3);
+            FillSubscriptions();
         }
         private void OnEnable()
         {
-            _answerChecker.Subscribe();
-            _answerGenerator.Subscribe();
+            _eventSubscriptionWraper.Subscribe();
         }
         private void OnDisable()
         {
-            _answerChecker.Unsubscribe();
-            _answerGenerator.Unsubscribe();
+            _eventSubscriptionWraper.Unsubscribe();
         }
 
         public void CreateGrid()
@@ -44,6 +46,12 @@ namespace Behaviours
             _grid.FillCells(size);
             _answerGenerator.SelectAnswer(_grid.Cells);
             _answerChecker.SetRightAnswer(_answerGenerator.CurrentAnswer);
+        }
+
+        private void FillSubscriptions()
+        {
+            _eventSubscriptionWraper.AddEvent(_answerChecker).
+                AddEvent(_answerGenerator).AddEvent(_grid);
         }
     }
 }

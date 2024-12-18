@@ -1,4 +1,5 @@
 ﻿using Helpers;
+using UI;
 using UnityEngine;
 
 namespace Behaviours
@@ -8,15 +9,15 @@ namespace Behaviours
         private static CellSelectedEvent _cellSelectedEvent;
 
         private string _answer;
-        private Vector2 _cellPosition;
+        private CellBehaviour _selectedCell;
 
         public string Answer => _answer;
-        public Vector2 CellPosition => _cellPosition;
+        public CellBehaviour SelectedCell => _selectedCell;
 
-        public static void Trigger(string answer, Vector2 cellPosition)
+        public static void Trigger(string answer, CellBehaviour selectedCell)
         {
             _cellSelectedEvent._answer = answer;
-            _cellSelectedEvent._cellPosition = cellPosition;
+            _cellSelectedEvent._selectedCell = selectedCell;
             EventManager.TriggerEvent(_cellSelectedEvent);
         }
     }

@@ -2,6 +2,7 @@
 using Helpers;
 using System.Collections.Generic;
 using UnityEngine;
+using UI;
 
 class RandomAnswerGenerator : IEventSubscription, IEventListener<AnswerSelectedEvent>
 {
@@ -9,20 +10,6 @@ class RandomAnswerGenerator : IEventSubscription, IEventListener<AnswerSelectedE
     private string _rightAnswer;
 
     public string CurrentAnswer => _rightAnswer;
-
-    public RandomAnswerGenerator()
-    {
-
-    }
-
-    public void Subscribe()
-    {
-        this.EventStartListening();
-    }
-    public void Unsubscribe()
-    {
-        this.EventStopListening();
-    }
 
     public void SelectAnswer(List<CellBehaviour> cells)
     {
@@ -33,6 +20,7 @@ class RandomAnswerGenerator : IEventSubscription, IEventListener<AnswerSelectedE
         }
         RandomAnswerEvent.Trigger(_rightAnswer);
     }
+
     private string SelectRandomAnswer(List<CellBehaviour> cells)
     {
         var answer = cells[Random.Range(0, cells.Count)].CellData.Name;
@@ -45,6 +33,14 @@ class RandomAnswerGenerator : IEventSubscription, IEventListener<AnswerSelectedE
         {
             _previousAnswer = _rightAnswer;
         }
+    }
+    public void Subscribe()
+    {
+        this.EventStartListening();
+    }
+    public void Unsubscribe()
+    {
+        this.EventStopListening();
     }
 }
 

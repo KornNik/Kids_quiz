@@ -12,12 +12,14 @@ namespace UI
         private PauseMenu _pauseMenu;
         private LoadingScreen _loadingScreen;
 
+        public Canvas Canvas => _canvas;
 
         public ScreenFactory()
         {
             var resources = Services.Instance.DatasBundle.ServicesObject.
                 GetData<DataResourcePrefabs>().GetScreenPrefab(ScreenTypes.Canvas);
             _canvas = Object.Instantiate(resources, Vector3.one, Quaternion.identity).GetComponent<Canvas>();
+            _canvas.worldCamera = Camera.main;
         }
 
         public GameMenu GetGameMenu()

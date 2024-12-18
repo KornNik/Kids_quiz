@@ -6,15 +6,14 @@ namespace UI
     sealed class FadeText : DotweenUIEffect
     {
         TMP_Text _text;
-        public FadeText(float fadeDuration, float fadeIntensive, TMP_Text text) : base(fadeDuration, fadeIntensive)
+        public FadeText(float fadeDuration, TMP_Text text) : base(fadeDuration)
         {
             _effectDuration = fadeDuration;
-            _effectIntensive = fadeIntensive;
             _text = text;
         }
         public override void DoEffect()
         {
-            _sequence = DOTween.Sequence();
+            base.DoEffect();
             _text.alpha = 0f;
             _sequence.Append(_text.DOFade(1.0f, _effectDuration));
         }

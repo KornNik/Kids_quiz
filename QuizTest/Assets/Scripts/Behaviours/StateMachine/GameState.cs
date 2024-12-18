@@ -46,7 +46,6 @@ namespace Behaviours
                 }
                 else
                 {
-                    Debug.Log("Last");
                     ChangeGameStateEvent.Trigger(GameStateType.EndLevelState);
                 }
             }

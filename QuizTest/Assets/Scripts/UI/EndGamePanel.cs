@@ -9,16 +9,20 @@ namespace UI
     sealed class EndGamePanel : MonoBehaviour
     {
         [SerializeField] private Button _repeatButton;
+        [SerializeField] private float _duration;
+        [SerializeField] private CanvasGroup _canvasGroup;
 
         private RectTransform _rectTransform;
         private SettingsPanelTween _panelTween;
         private SequenceSettings _sequenceSettings;
+        private DotweenUIEffect _tweenUIEffect;
 
         private void Awake()
         {
             _rectTransform = GetComponent<RectTransform>();
             _panelTween = new SettingsPanelTween(_rectTransform);
             _sequenceSettings = new SequenceSettings(_panelTween);
+            _tweenUIEffect = new FadeElement(_duration, _canvasGroup);
         }
 
         private void OnEnable()
@@ -35,6 +39,7 @@ namespace UI
         {
             _panelTween.GoToEnd(MoveMode.Hide);
             _sequenceSettings.Move(MoveMode.Show);
+            _tweenUIEffect.DoEffect();
         }
         private void Hide()
         {

@@ -16,7 +16,7 @@ namespace UI
 
         private void Awake()
         {
-            _dotweenEffect = new FadeText(_fadeDuration, 1, _textMeshPro);
+            _dotweenEffect = new FadeText(_fadeDuration, _textMeshPro);
             _dotweenEffect.DoEffect();
         }
 

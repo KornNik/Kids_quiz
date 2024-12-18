@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using Helpers;
+using UI;
 
 namespace Behaviours
 {
@@ -11,30 +12,22 @@ namespace Behaviours
 
         public string RightAnswer => _rightAnswer;
 
-        public void Subscribe()
-        {
-            this.EventStartListening();
-        }
-
-        public void Unsubscribe()
-        {
-            this.EventStopListening();
-        }
-
-        public bool CheckAnswer(string selectedAnswer,Vector2 cellPosition)
+        public bool CheckAnswer(string selectedAnswer,CellBehaviour cellBeh)
         {
             if (_rightAnswer == selectedAnswer)
             {
-                AnswerSelectedEvent.Trigger(AnswerType.Correct, cellPosition);
+                CreateParticleEvent.Trigger(ParticleType.Stars, cellBeh.transform);
+                CellsStatusEvent.Trigger(false);
+                cellBeh.EffectOnCorrectAnswer(() => AnswerSelectedEvent.Trigger(AnswerType.Correct));
                 return true;
             }
             else
             {
-                AnswerSelectedEvent.Trigger(AnswerType.Wrong);
+                CellsStatusEvent.Trigger(false);
+                cellBeh.EffectOnCorrectAnswer(() => AnswerSelectedEvent.Trigger(AnswerType.Wrong));  
                 return false;
             }
         }
-
         public void SetRightAnswer(string rightAnswer)
         {
             _rightAnswer = rightAnswer;
@@ -44,9 +37,20 @@ namespace Behaviours
         {
             _rightAnswer = null;
         }
+
         public void OnEventTrigger(CellSelectedEvent eventType)
         {
-            CheckAnswer(eventType.Answer, eventType.CellPosition);
+            CheckAnswer(eventType.Answer, eventType.SelectedCell);
+        }
+
+        public void Subscribe()
+        {
+            this.EventStartListening();
+        }
+
+        public void Unsubscribe()
+        {
+            this.EventStopListening();
         }
     }
 }

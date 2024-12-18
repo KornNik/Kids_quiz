@@ -1,22 +1,24 @@
 ﻿using UnityEngine;
 using DG.Tweening;
 
-
-class FadeElement : DotweenUIEffect
+namespace UI
 {
-    private SpriteRenderer _elementSprite;
-
-    public FadeElement(float fadeDuration, float fadeIntensive, SpriteRenderer elementSprite) : base(fadeDuration, fadeIntensive)
+    class FadeElement : DotweenUIEffect
     {
-        _effectDuration = fadeDuration;
-        _effectIntensive = fadeIntensive;
-        _elementSprite = elementSprite;
-    }
+        private CanvasGroup _fadeElement;
 
-    public override void DoEffect()
-    {
-        _sequence.Append(_elementSprite.DOFade(0.0f,_effectDuration));
-        _sequence.Append(_elementSprite.DOFade(1.0f, _effectDuration));
-    }
+        public FadeElement(float fadeDuration, CanvasGroup fadeElement) : base(fadeDuration)
+        {
+            _effectDuration = fadeDuration;
+            _fadeElement = fadeElement;
+        }
 
+        public override void DoEffect()
+        {
+            base.DoEffect();
+            _fadeElement.alpha = 0;
+            _sequence.Append(_fadeElement.DOFade(1.0f, _effectDuration));
+        }
+
+    }
 }
