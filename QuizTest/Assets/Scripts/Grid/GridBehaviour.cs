@@ -5,7 +5,11 @@ using UnityEngine.UI;
 
 namespace Behaviours
 {
-    class GridBehaviour : MonoBehaviour
+    interface IGrid
+    {
+        void CreateGrid();
+    }
+    class GridBehaviour : MonoBehaviour, IGrid
     {
         [SerializeField] private GridLayoutGroup _gridLayout;
 

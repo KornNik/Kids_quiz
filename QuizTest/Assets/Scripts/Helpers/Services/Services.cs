@@ -23,7 +23,7 @@ namespace Helpers
         public Service<InputController> InputController { get; private set; }
         public Service<GameStateBehaviour> GameStateBehavior { get; private set; }
         public Service<Level> Level { get; private set; }
-        public Service<GridBehaviour> GridBehaviour { get; private set; }
+        public Service<IGrid> GridBehaviour { get; private set; }
 
         public Services()
         {
@@ -42,7 +42,7 @@ namespace Helpers
             DataResourcePrefabs = new Service<DataResourcePrefabs>();
             InputController = new Service<InputController>();
             Level = new Service<Level>();
-            GridBehaviour = new Service<GridBehaviour>();
+            GridBehaviour = new Service<IGrid>();
             ParticlesController = new Service<GlobalParticlesController>();
         }
     }
